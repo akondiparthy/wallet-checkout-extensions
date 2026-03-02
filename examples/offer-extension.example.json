@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "extension_id": "com.example.loyalty.offer.v1",
+  "extension_type": "offer_extension",
+  "merchant_id": "merchant_12345",
+  "display": {
+    "headline": "Use 500 wallet points for $5.00 off",
+    "subtext": "Applies to eligible items only",
+    "cta_label": "Apply"
+  },
+  "permissions": {
+    "read": [
+      "cart.total_minor",
+      "cart.currency",
+      "wallet.loyalty_points_balance"
+    ],
+    "write": [
+      "offer_selection"
+    ]
+  },
+  "constraints": {
+    "can_change_order_total": false,
+    "layout_control": "none",
+    "max_copy_chars": 120
+  },
+  "timing": {
+    "phase": "pre_confirmation",
+    "timeout_ms": 120
+  },
+  "fallback": {
+    "behavior": "silent_skip_on_timeout"
+  },
+  "signature": {
+    "alg": "ES256",
+    "kid": "wallet_ext_key_2026_01",
+    "value": "<detached-jws-signature>"
+  }
+}
