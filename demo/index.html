@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WCE Checkout Simulator</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-bg"></div>
+    <main class="layout">
+      <section class="hero">
+        <p class="eyebrow">Wallet Checkout Extensions</p>
+        <h1>Checkout Simulator</h1>
+        <p class="subtitle">
+          Wallet-owned rendering, extension policies, deterministic fallback.
+        </p>
+      </section>
+
+      <section class="grid">
+        <section class="panel wallet-panel">
+          <header class="panel-header">
+            <h2>Wallet Checkout Shell</h2>
+            <div class="actions">
+              <button id="start-checkout-btn" class="btn btn-secondary">Start Checkout</button>
+              <button id="reset-btn" class="btn btn-ghost">Reset</button>
+            </div>
+          </header>
+
+          <div class="checkout-summary">
+            <div>
+              <p class="label">Merchant</p>
+              <p class="value">Northstar Outfitters</p>
+            </div>
+            <div>
+              <p class="label">Order Total</p>
+              <p class="value">$89.99 USD</p>
+            </div>
+            <div>
+              <p class="label">Region</p>
+              <p class="value" id="region-badge">US</p>
+            </div>
+          </div>
+
+          <div id="state-track" class="state-track"></div>
+
+          <section class="wallet-block">
+            <h3>Wallet-rendered Extension Slots</h3>
+            <p class="hint">
+              Extension payloads are declarative; wallet controls the UI and can deny unsafe fields.
+            </p>
+            <div id="extension-slots" class="extension-slots"></div>
+          </section>
+
+          <section class="wallet-block">
+            <h3>Funding Selection</h3>
+            <div id="funding-options" class="funding-options"></div>
+          </section>
+
+          <section class="wallet-block">
+            <h3>Confirmation</h3>
+            <p id="confirmation-note" class="hint">
+              Start checkout to evaluate extensions.
+            </p>
+            <button id="confirm-btn" class="btn btn-primary" disabled>Confirm Purchase</button>
+          </section>
+
+          <section class="wallet-block" id="post-purchase-block">
+            <h3>Post-Purchase Extensions</h3>
+            <div id="post-purchase-slots" class="extension-slots"></div>
+          </section>
+        </section>
+
+        <section class="panel controls-panel">
+          <header class="panel-header">
+            <h2>Runtime Policies</h2>
+          </header>
+
+          <div class="control-group">
+            <label for="region-select">Policy Region</label>
+            <select id="region-select">
+              <option value="US">US</option>
+              <option value="EU">EU</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="delay-input">Simulated Extension Delay (ms)</label>
+            <input id="delay-input" type="number" value="80" min="0" step="20" />
+          </div>
+
+          <div class="control-group">
+            <label class="checkbox-row">
+              <input id="auth-fail-toggle" type="checkbox" />
+              Force authorization failure
+            </label>
+          </div>
+
+          <div class="control-group">
+            <p class="label">Kill Switches</p>
+            <label class="checkbox-row">
+              <input data-kill-switch="offer_extension" type="checkbox" />
+              Disable Offer Extension
+            </label>
+            <label class="checkbox-row">
+              <input data-kill-switch="payment_logic_extension" type="checkbox" />
+              Disable Payment Logic Extension
+            </label>
+            <label class="checkbox-row">
+              <input data-kill-switch="identity_eligibility_extension" type="checkbox" />
+              Disable Identity / Eligibility Extension
+            </label>
+            <label class="checkbox-row">
+              <input data-kill-switch="post_purchase_extension" type="checkbox" />
+              Disable Post-Purchase Extension
+            </label>
+          </div>
+
+          <div class="control-group">
+            <p class="label">Governance Signals</p>
+            <ul class="signals">
+              <li>Extensions cannot block confirmation.</li>
+              <li>Merchant custom HTML is denied.</li>
+              <li>Timeouts degrade gracefully with fallback.</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <section class="panel logs-panel">
+        <header class="panel-header">
+          <h2>Audit & Analytics Log (No PII)</h2>
+        </header>
+        <div id="log-list" class="log-list"></div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
